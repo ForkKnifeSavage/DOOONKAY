@@ -15,6 +15,12 @@ var BarrelScene = new Phaser.Class({
 
     create: function()
     {
+        this.physics.add.sprite(100, 100, 'Doonkay').setScale(0.01);
+
+
+        this.platforms = this.physics.add.staticGroup();
+
+        this.platforms.create(400, 550, 'platforms').setScale(2).refreshBody();
     }
 
 
