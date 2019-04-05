@@ -20,7 +20,8 @@ var BarrelScene = new Phaser.Class({
 
         this.platforms = this.physics.add.staticGroup();
 
-        this.platforms.create(400, 550, 'platforms').setScale(2).refreshBody();
+        this.platforms.create(400, 580, 'platforms').setScale(1).refreshBody();
+        //this.platforms.create(200, 700, 'platforms').setScale(2).refreshBody();
     }
 
 
