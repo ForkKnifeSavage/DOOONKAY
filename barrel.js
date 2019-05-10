@@ -36,11 +36,30 @@ var BarrelScene = new Phaser.Class({
 
     create: function()
     {
-
-
+        this.platforms = this.physics.add.staticGroup();
         this.doonkay = this.physics.add.sprite(600, 83, 'Doonkay').setScale(0.2);
-        this.barrel = this.physics.add.sprite(650, 111, 'barrel').setScale(0.2);
-        this.Shrek = this.physics.add.sprite(50, 300, 'Shrek').setScale(0.3);
+
+        function createBarrel (scene, platforms) {
+            var barrel = scene.physics.add.sprite(scene.doonkay.x,  scene.doonkay.y, 'barrel').setScale(0.15);
+            barrel.body.velocity.x = -100;
+            barrel.body.collideWorldBounds = true;
+            barrel.body.bounce.set(1, 0);
+            scene.physics.add.collider(barrel, platforms);
+            scene.physics.add.collider(scene.Shrek, barrel, hitBarrel, null, this);
+        }
+        this.platforms = this.physics.add.staticGroup();
+
+        this.time.addEvent({
+            delay: 0,
+            callback: createBarrel,
+            args: [this, this.platforms],
+            loop: true
+        });
+
+
+        this.Shrek = this.physics.add.sprite(50, 300, 'Shrek').setScale(0.1);
+
+        this.physics.add.collider(this.Shrek, this.doonkay, hitDoonkay, null, this);
 
         this.tweens.add({
             targets: this.doonkay,
@@ -51,13 +70,13 @@ var BarrelScene = new Phaser.Class({
             yoyo:true
         });
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.platforms = this.physics.add.staticGroup();
+
 
         this.physics.add.collider(this.Shrek, this.platforms);
 
         this.physics.add.collider(this.doonkay, this.platforms);
 
-        this.physics.add.collider(this.barrel, this.platforms);
+
 
         this.platforms.create(400, 580, 'platforms').setScale(2).refreshBody();
         this.platforms.create(600, 150, 'platforms').setScale(1).refreshBody();
@@ -73,7 +92,7 @@ var BarrelScene = new Phaser.Class({
 
             gameOver = true;
         }
-        this.physics.add.collider(this.Shrek, this.doonkay, hitDoonkay, null, this);
+
     }
 
 
