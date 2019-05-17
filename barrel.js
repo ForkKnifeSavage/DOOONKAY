@@ -60,7 +60,7 @@ var BarrelScene = new Phaser.Class({
         this.Shrek = this.physics.add.sprite(50, 300, 'Shrek').setScale(0.1);
 
         this.physics.add.collider(this.Shrek, this.doonkay, hitDoonkay, null, this);
-
+        this.physics.add.collider(this.Shrek, this.Barrel, hitBarrel, null, this);
         this.tweens.add({
             targets: this.doonkay,
             x: 350,
@@ -84,15 +84,23 @@ var BarrelScene = new Phaser.Class({
         this.platforms.create(0, 150, 'platforms').setScale(1).refreshBody();
         this.platforms.create(0, 270, 'platforms').setScale(3.5, 1).refreshBody();
         this.platforms.create(600, 400, 'platforms').setScale(2.5, 1).refreshBody();
+
         function hitDoonkay (Shrek, Doonkay )
         {
             this.physics.pause();
             Doonkay.setTint(0xff0000);
             //Shrek.anims.play('turn');
-
+            location.reload();
             gameOver = true;
         }
-
+        function hitBarrel (Shrek, Barrel )
+        {
+            //this.physics.pause();
+            Shrek.setTint(0xff0000);
+            //Shrek.anims.play('turn');
+            location.reload();
+            gameOver = true;
+        }
     }
 
 
